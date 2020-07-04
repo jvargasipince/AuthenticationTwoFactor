@@ -1,0 +1,49 @@
+﻿@model AuthenticationTwoFactor.Models.UserLogged
+
+@{
+    ViewData["Title"] = "Confirm Authentication";
+}
+
+@using (Html.BeginForm("AuthenticatorSMS", "Home", FormMethod.Post))
+{
+    <fieldset>
+        <legend>Authentication Two Factor</legend>
+        <legend>Net Core 3.1 & Twilio</legend>
+
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        @if (@ViewBag.Message != null)
+        {
+            <div style="border: 1px solid red">
+                @ViewBag.Message
+            </div>
+        }
+    <table>
+        <tr>
+            <td>@Html.LabelFor(a => a.FullName)</td>
+            <td>@Html.TextBoxFor(a => a.FullName, new { @Value = Model.FullName })</td>
+            <td>@Html.ValidationMessageFor(a => a.FullName)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(a => a.MobilePhone)</td>
+            <td>@Html.TextBoxFor(a => a.MobilePhone, new { @Value = Model.MobilePhone })</td>
+            <td>@Html.ValidationMessageFor(a => a.MobilePhone)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(a => a.SMSCodeVerify)</td>
+            <td>@Html.TextBoxFor(a => a.SMSCodeVerify)</td>
+            <td>@Html.ValidationMessageFor(a => a.SMSCodeVerify)</td>
+        </tr>
+        <tr>
+            <td>@Html.HiddenFor(a => a.SMSCode)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" value="Verificar" />
+            </td>
+            <td></td>
+        </tr>
+    </table>
+    </fieldset>
+}  
